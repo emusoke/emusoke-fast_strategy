@@ -14,8 +14,8 @@ services:
     ports:
       - 80:80
     environment:
-      - API_KEY: ${API_KEY}
-      - REDIS_URL = redis
+      - API_KEY=${API_KEY}
+      - REDIS_URL=redis
     networks:
       - fast_network
 
