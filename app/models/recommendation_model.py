@@ -10,11 +10,9 @@ class Strategy(BaseModel):
 
 
 class Weather(BaseModel):
-    current: Dict[str,Any]
+    current: Dict[str, Any]
 
 
 class Recommendation(BaseModel):
     strategy: Strategy
     weather: Weather
-
- 
