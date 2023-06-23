@@ -73,7 +73,9 @@ You can then navigate to the app folder and run the following command.
 ```bash
 uvicorn main:app --reload
 ```
-Navigate to [http://localhost/docs](http://localhost/docs) to open up the swagger page of the application. 
+
+Lastly you need to set the weather API_KEY, you can follow the same steps provided above. 
+Navigate to [http://localhost/docs](http://localhost/docs) to open up the swagger page of the application.  
 
 ## Usage
 
