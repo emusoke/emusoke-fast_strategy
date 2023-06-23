@@ -12,7 +12,7 @@ redis = redis.Redis(host=redis_url, port=6379, decode_responses=True)
 app = FastAPI()
 
 
-@app.get("/{location}")
+@app.get("/location/{location}")
 async def read_root(location: str):
     strategy = redis.json().get(location)
     return {"Result": strategy}
