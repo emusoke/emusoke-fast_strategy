@@ -6,7 +6,7 @@ A user can then retrieve the weather and strategy from the DB using the location
 
 ## Usage
 
-### 1) Installation
+### 1) Docker (recommended)
 
 #### Requirements:
 - Docker
@@ -14,7 +14,7 @@ A user can then retrieve the weather and strategy from the DB using the location
 
 This method of running the application only requires Docker to be installed.
 
-The App uses the weatherstack.com API. To use this application you will need an API Key. Weatherstack offers free subscriptions that you can sign up for.
+The App uses the weatherstack API to get weather data. You can get a key at [weatherstack](https://weatherstack.com).
 
 Before building and running the docker container, you will need to set up your API key as an environment variable. 
 
@@ -47,21 +47,59 @@ This will spin up two containers. One is our application and the second will run
 
 Navigate to [http://localhost/docs](http://localhost/docs) to open up the swagger page of the application. 
 
+### 2) Run Locally
+
+#### Requirements:
+- Python 3.7 +
+- API Key from [weatherstack](https://weatherstack.com).
+- [Redis](https://redis.io/docs/getting-started/installation/)
+- [Redis Json Module](https://redis.io/docs/stack/json/)
+
+
+Get redis running locally. You can follow the [Redis Getting Started](https://redis.io/docs/getting-started/) page for detailed instructions on how to do this. 
+
+
+With Redis installed ensure that you have the Redis Json Module installed [info](https://redis.io/docs/stack/json/).
+
+
+To run the FastAPI application you will need to install the necessary modules. This can be done by running the following in the root directory 
+
+```bash
+pip install -r requirements.txt
+```
+
+You can then navigate to the app folder and run the following command. 
+
+```bash
+uvicorn main:app --reload
+```
+Navigate to [http://localhost/docs](http://localhost/docs) to open up the swagger page of the application. 
 
 ## Usage
 
 ### 1) Authentication
 
+The recommendation and location endpoints will require an access token. First, you will need to register to use the application. Users will be stored in the Redis DB.
+
+Enter a username and password in the register endpoint. Once registered, you can use the "authorize" button on the swagger page to authenticate. The endpoints explained below should then work. You can also use the "authorize" button to logout. 
+
+The token endpoint will return a valid token if given a valid username and password. This token will need to be added to the header of requests made to the application. If you authenticated using the "authorize" button on the swagger page then the token will be added to the headers for you and you can simply make requests from that point. 
+
+
+Note: The security implemented in this application is purely for demonstration purposes and is not fit for a production-level application. 
+
+
 ### 2) Recommendation Endpoint. 
 
-Make a post request to the recommended endpoint. This will get the weather and recommend a race strategy. 
+Make a post request to the /recommend endpoint. This will get the weather and recommend a race strategy. If you are using the swagger you can simply enter the number of laps and city.
 
 Example of Curl request made for a 40-lap race in Brussels. 
 
 ```bash
 curl -X 'POST' \
-  'http://localhost/recommend' \
+  'http://localhost/recommend/' \
   -H 'accept: application/json' \
+  -H 'Authorization: Bearer {Enter Token Here}' \
   -H 'Content-Type: application/json' \
   -d '{
   "laps": 40,
@@ -77,13 +115,6 @@ Example of Curl request getting strategy for Brussels from DB.
 ```bash
 curl -X 'GET' \
   'http://localhost/location/Brussels' \
-  -H 'accept: application/json'
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer {Enter Token Here}'
 ```
-
-These requests can also be made using the Swagger UI. 
-
-
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
