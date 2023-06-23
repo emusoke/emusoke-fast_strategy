@@ -75,7 +75,9 @@ uvicorn main:app --reload
 ```
 
 Lastly you need to set the weather API_KEY, you can follow the same steps provided above. 
-Navigate to [http://localhost/docs](http://localhost/docs) to open up the swagger page of the application.  
+Navigate to [http://localhost/docs](http://localhost/docs) to open up the swagger page of the application. 
+
+[RedisInsights](https://redis.io/docs/ui/insight/) is a great tool for interacting with the Redis DB visually.
 
 ## Usage
 
