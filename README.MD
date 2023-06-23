@@ -6,7 +6,7 @@ A user can then retrieve the weather and strategy from the DB using the location
 
 ## Usage
 
-### 1) Docker (recommended)
+### 1) Docker (Recommended)
 
 #### Requirements:
 - Docker
